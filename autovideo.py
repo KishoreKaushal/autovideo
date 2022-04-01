@@ -109,35 +109,35 @@ def load_setting():
 
     global setting
     try:
-        print('读取配置文件', setting_file)
+        print('read configuration file', setting_file)
 
         fp = open(setting_file, 'r', encoding='utf-8')
         setting_json = fp.read()
         fp.close()
     except:
-        print('读取配置文件失败 加载默认模版')
+        print('Failed to read configuration file Loading default template')
         fp = open("assets/config/setting-template.json", 'r', encoding='utf-8')
         setting_json = fp.read()
         fp.close()
     setting = json.loads(setting_json)
-    print('当前使用的配置为：', setting)
+    print('The configuration currently used is：', setting)
     return setting
 
 def reset_gui():
 
     load_setting()
 
-    # 清空表格
-    # 写入数据
+    # empty form
+    # data input
 
     prefertags.set(setting['prefertags'])
     # preferdes.set(setting['preferdes'])
     preferdes.set(setting['preferdes'])
 
-# 加载剧本
+# Load Script
 
 
-# 保存配置
+# save configuration
 
 
 def select_profile_folder():
@@ -173,7 +173,7 @@ def select_musics_folder():
 def select_driver_file():
     global driver_file_path
     driver_file_path = filedialog.askopenfilenames(
-        title="请选择gendriver 文件", filetypes=[("exe", "*.exe"), ("All Files", "*")])[0]
+        title="please choose gendriver document", filetypes=[("exe", "*.exe"), ("All Files", "*")])[0]
 
     driverfilepath.set(driver_file_path)
     setting['driverfilepath'] = driver_file_path
@@ -182,7 +182,7 @@ def select_driver_file():
 def select_setting_file():
 
     global setting_file
-    setting_file = filedialog.askopenfilenames(title="请选择该频道配置文件", filetypes=[
+    setting_file = filedialog.askopenfilenames(title="Select this channel profile", filetypes=[
         ("Json", "*.json"), ("All Files", "*")])[0]
     load_setting()
     firefox_profile_folder_path = setting['firefox_profile_folder']
@@ -207,7 +207,7 @@ def select_setting_file():
 def select_cookie_file():
 
     global channel_cookie_path
-    channel_cookie_path = filedialog.askopenfilenames(title="请选择该频道对应cookie文件", filetypes=[
+    channel_cookie_path = filedialog.askopenfilenames(title="Select cookie file", filetypes=[
         ("Json", "*.json"), ("All Files", "*")])[0]
 
     channel_cookie.set(channel_cookie_path)
@@ -281,9 +281,9 @@ def save_setting():
     setting['publishpolicy']=publishpolicy.get()    
     with open('assets/config/'+setting['channelname']+".json", 'w') as f:
         f.write(json.dumps(setting, indent=4, separators=(',', ': ')))
-    print("配置保存成功")
+    print("Configuration saved to assets/config/"+setting['channelname']+".json")
 
-# 清理残留文件
+# Clean up residual files.
 
 def threadusing_free_musichelper(numbers):
 
@@ -432,7 +432,7 @@ def changebgmusic():
                         print("this took too long...")
             #             # task.interrupt()
             end = time.time()
-            print("批量替换took {} seconds\n".format(end-start))
+            print("operation took {} seconds\n".format(end-start))
 
 
 
@@ -443,9 +443,9 @@ def b64e(s):
 def checkraw():
 
     save_setting()
-# 文件夹下是否有视频文件
+# Are there any video files in the folder?
 
-# 视频文件是否有同名的图片
+# Whether the video file has a picture with the same name?
 
     try:
         video_folder_path = setting['video_folder']
@@ -689,53 +689,53 @@ if __name__ == '__main__':
         publishpolicy = tk.StringVar()
         publishpolicy.set(setting['publishpolicy'])
         
-        l3 = tk.Label(root, text="copyright free music folder")
+        l3 = tk.Label(root, text="Music folder")
         l3.place(x=10, y=130)
         e3 = tk.Entry(root, width=55, textvariable=music_folder)
         e3.place(x=120, y=130)
 
-        l4 = tk.Label(root, text="标签")
+        l4 = tk.Label(root, text="Label")
         l4.place(x=10, y=70)
         e4 = tk.Entry(root, width=55, textvariable=prefertags)
         e4.place(x=120, y=70)
 
-        l51 = tk.Label(root, text="背景音乐音量")
+        l51 = tk.Label(root, text="BG volume")
         l51.place(x=10, y=150)
         e51 = tk.Entry(root, width=55, textvariable=ratio)
         e51.place(x=120, y=150)
 
-        l52 = tk.Label(root, text="发布策略")
+        l52 = tk.Label(root, text="Publish Policy")
         l52.place(x=10, y=170)
         e52 = tk.Entry(root, width=55, textvariable=publishpolicy)
         e52.place(x=120, y=170)
 
 
-        l5 = tk.Label(root, text="每日公开视频数量")
+        l5 = tk.Label(root, text="Daily Count")
         l5.place(x=10, y=200)
         e5 = tk.Entry(root, width=55, textvariable=dailycount)
         e5.place(x=120, y=200)
 
-        l63 = tk.Label(root, text="视频描述")
+        l63 = tk.Label(root, text="Description")
         l63.place(x=10, y=100)
         e63 = tk.Entry(root, width=55, textvariable=preferdes)
         e63.place(x=120, y=100)
 
-        l64 = tk.Label(root, text="频道名称")
+        l64 = tk.Label(root, text="Channel Name")
         l64.place(x=10, y=230)
         e64 = tk.Entry(root, width=55, textvariable=channelname)
         e64.place(x=120, y=230)
 
-        l65 = tk.Label(root, text="视频文件夹")
+        l65 = tk.Label(root, text="Video Folder")
         l65.place(x=10, y=270)
         e65 = tk.Entry(root, width=55, textvariable=video_folder)
         e65.place(x=120, y=270)
 
-        l66 = tk.Label(root, text="profile文件夹")
+        l66 = tk.Label(root, text="profile folder")
         l66.place(x=10, y=300)
         e66 = tk.Entry(root, width=55, textvariable=firefox_profile_folder)
         e66.place(x=120, y=300)
 
-        l67 = tk.Label(root, text="驱动路径")
+        l67 = tk.Label(root, text="Drive Path")
         l67.place(x=10, y=330)
         e67 = tk.Entry(root, width=55, textvariable=driverfilepath)
         e67.place(x=120, y=330)
@@ -745,38 +745,38 @@ if __name__ == '__main__':
         e68 = tk.Entry(root, width=55, textvariable=channel_cookie)
         e68.place(x=120, y=360)
 
-        b5 = tk.Button(root, text="加载配置", command=select_setting_file)
+        b5 = tk.Button(root, text="Load configuration", command=select_setting_file)
         b5.place(x=100, y=30)
 
-        b6 = tk.Button(root, text="保存配置", command=save_setting)
+        b6 = tk.Button(root, text="Save Settings", command=save_setting)
         b6.place(x=200, y=30)
 
         b61 = tk.Button(root, text="headless", command=save_setting)
         b61.place(x=300, y=30)
 
-        b7 = tk.Button(root, text="开始上传", command=upload)
+        b7 = tk.Button(root, text="Upload", command=upload)
         b7.place(x=400, y=400)
 
-        b8 = tk.Button(root, text="检查素材", command=checkraw)
+        b8 = tk.Button(root, text="Check", command=checkraw)
         b8.place(x=300, y=400)
-        b9 = tk.Button(root, text="批量替换背景音乐", command=batchchangebgmusic)
+        b9 = tk.Button(root, text="Batch change BG Music", command=batchchangebgmusic)
         b9.place(x=150, y=400)
         menubar = tk.Menu(root)
         filemenu = tk.Menu(menubar, tearoff=False)
-        menubar.add_cascade(label="浏览器配置", menu=filemenu)
-        filemenu.add_command(label="选择geckodriver文件",
+        menubar.add_cascade(label="File Menu", menu=filemenu)
+        filemenu.add_command(label="Choose geckodriver file",
                              command=select_driver_file)
-        filemenu.add_command(label="选择profile文件夹",
+        filemenu.add_command(label="Select profile folder",
                              command=select_profile_folder)
-        filemenu.add_command(label="选择cookie json",
+        filemenu.add_command(label="Select cookie json",
                              command=select_cookie_file)
 
         filemenu2 = tk.Menu(menubar, tearoff=False)
 
-        menubar.add_cascade(label="视频素材", menu=filemenu2)
-        filemenu2.add_command(label="选择视频文件夹",
+        menubar.add_cascade(label="Video footage", menu=filemenu2)
+        filemenu2.add_command(label="select video folder",
                               command=select_videos_folder)
-        filemenu2.add_command(label="选择背景音樂文件夹",
+        filemenu2.add_command(label="Select background music folder",
                               command=select_musics_folder)
 
         root.config(menu=menubar)
